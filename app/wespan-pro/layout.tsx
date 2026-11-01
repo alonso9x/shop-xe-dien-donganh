@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Xe Điện Wespan Pro | Xe Điện Minh Anh",
-  description: "Khám phá xe máy điện Powelldd Wespan Pro với vẻ đẹp khó cưỡng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+  title: "Xe Điện Wespan Pro | Xe Điện Đông Anh",
+  description: "Khám phá xe máy điện Powelldd Wespan Pro với vẻ đẹp khó cưỡng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Đông Anh.",
   alternates: {
-    canonical: "https://xedienminhanh.vn/wespan-pro",
+    canonical: "https://xediendonganh.vn/wespan-pro",
   },
 };
 
@@ -19,8 +19,8 @@ export default function WespanProLayout({
     "@type": "Product",
     "name": "Xe máy điện Powelldd Wespan Pro",
     // ⚠️ CHÚ Ý: Kiểm tra lại xem anh(12).jpg có nằm trong thư mục gallery không nhé
-    "image": "https://xedienminhanh.vn/images/vehicles/wespan-pro/gallery/anh(12).jpg",
-    "description": "Khám phá xe máy điện Powelldd Wespan Pro với vẻ đẹp khó cưỡng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+    "image": "https://xediendonganh.vn/images/vehicles/wespan-pro/gallery/anh(12).jpg",
+    "description": "Khám phá xe máy điện Powelldd Wespan Pro với vẻ đẹp khó cưỡng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Đông Anh.",
     "sku": "POWELLDD-WESPAN-PRO",
     "brand": {
       "@type": "Brand",
@@ -28,7 +28,7 @@ export default function WespanProLayout({
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://xedienminhanh.vn/wespan-pro",
+      "url": "https://xediendonganh.vn/wespan-pro",
       "priceCurrency": "VND",
       "price": "19990000",
       "priceValidUntil": "2026-12-31",
@@ -36,7 +36,7 @@ export default function WespanProLayout({
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
-        "name": "Xe Điện Minh Anh"
+        "name": "Xe Điện Đông Anh"
       }
     }
   };

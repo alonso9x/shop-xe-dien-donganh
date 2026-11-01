@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://xedienminhanh.vn/sitemap.xml',
+    sitemap: 'https://xediendonganh.vn/sitemap.xml',
   };
 }

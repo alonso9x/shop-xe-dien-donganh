@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Xe Điện Fancy | Xe Điện Minh Anh",
-  description: "Khám phá xe máy điện Powelldd Fancy với thiết kế thời thượng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+  title: "Xe Điện Fancy | Xe Điện Đông Anh",
+  description: "Khám phá xe máy điện Powelldd Fancy với thiết kế thời thượng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Đông Anh.",
   alternates: {
-    canonical: "https://xedienminhanh.vn/fancy",
+    canonical: "https://xediendonganh.vn/fancy",
   },
 };
 
@@ -13,13 +13,12 @@ export default function FancyLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // BỘ KHUNG SCHEMA CHUẨN SEO DÀNH RIÊNG CHO DÒNG FANCY
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Xe máy điện Powelldd Fancy",
-    "image": "https://xedienminhanh.vn/images/powelldd/fancy/xam-magic.png",
-    "description": "Khám phá xe máy điện Powelldd Fancy với thiết kế thời thượng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+    "image": "https://xediendonganh.vn/images/powelldd/fancy/xam-magic.png",
+    "description": "Khám phá xe máy điện Powelldd Fancy với thiết kế thời thượng, đậm chất Ý. Trải nghiệm ngay tại Xe Điện Đông Anh.",
     "sku": "POWELLDD-FANCY",
     "brand": {
       "@type": "Brand",
@@ -27,7 +26,7 @@ export default function FancyLayout({
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://xedienminhanh.vn/fancy",
+      "url": "https://xediendonganh.vn/fancy",
       "priceCurrency": "VND",
       "price": "17990000",
       "priceValidUntil": "2026-12-31",
@@ -35,7 +34,7 @@ export default function FancyLayout({
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
-        "name": "Xe Điện Minh Anh"
+        "name": "Xe Điện Đông Anh"
       }
     }
   };

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Xe Điện Dimoon | Xe Điện Minh Anh",
-  description: "Khám phá xe máy điện Powelldd Dimoon với công nghệ AI tuyệt đỉnh, 100km cho một lần sạc. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+  title: "Xe Điện Dimoon | Xe Điện Đông Anh",
+  description: "Khám phá xe máy điện Powelldd Dimoon với công nghệ AI tuyệt đỉnh, 100km cho một lần sạc. Trải nghiệm ngay tại Xe Điện Đông Anh.",
   alternates: {
-    canonical: "https://xedienminhanh.vn/dimoon",
+    canonical: "https://xediendonganh.vn/dimoon",
   },
 };
 
@@ -18,8 +18,8 @@ export default function DimoonLayout({
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Xe máy điện Powelldd Dimoon",
-    "image": "https://xedienminhanh.vn/images/powelldd/dimoon/trang-bang-suong.png", 
-    "description": "Khám phá xe máy điện Powelldd Dimoon với công nghệ AI tuyệt đỉnh, 100km cho một lần sạc. Trải nghiệm ngay tại Xe Điện Minh Anh.",
+    "image": "https://xediendonganh.vn/images/powelldd/dimoon/trang-bang-suong.png", 
+    "description": "Khám phá xe máy điện Powelldd Dimoon với công nghệ AI tuyệt đỉnh, 100km cho một lần sạc. Trải nghiệm ngay tại Xe Điện Đông Anh.",
     "sku": "POWELLDD-DIMOON",
     "brand": {
       "@type": "Brand",
@@ -27,7 +27,7 @@ export default function DimoonLayout({
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://xedienminhanh.vn/dimoon",
+      "url": "https://xediendonganh.vn/dimoon",
       "priceCurrency": "VND",
       "price": "17990000", 
       "priceValidUntil": "2026-12-31", 
@@ -35,19 +35,17 @@ export default function DimoonLayout({
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
-        "name": "Xe Điện Minh Anh"
+        "name": "Xe Điện Đông Anh"
       }
     }
   };
 
   return (
     <>
-      {/* NHÚNG SCHEMA VÀO ĐẦU TRANG */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
-      {/* RENDER NỘI DUNG GIAO DIỆN BÊN DƯỚI */}
       {children}
     </>
   );

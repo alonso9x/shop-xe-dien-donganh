@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Xe Điện Dina | Xe Điện Minh Anh",
-  description: "Khám phá xe máy điện Powelldd Dina thiết kế thanh lịch, màu hồng Blush cá tính. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+  title: "Xe Điện Dina | Xe Điện Đông Anh",
+  description: "Khám phá xe máy điện Powelldd Dina thiết kế thanh lịch, màu hồng Blush cá tính. Trải nghiệm ngay tại Xe Điện Đông Anh.",
   alternates: {
-    canonical: "https://xedienminhanh.vn/dina",
+    canonical: "https://xediendonganh.vn/dina",
   },
 };
 
@@ -13,13 +13,12 @@ export default function DinaLayout({
 }: {
   children: React.ReactNode;
 }) {
-  
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Xe máy điện Powelldd Dina",
-    "image": "https://xedienminhanh.vn/images/powelldd/dina/hong-blush.png",
-    "description": "Khám phá xe máy điện Powelldd Dina thiết kế thanh lịch, màu hồng Blush cá tính. Trải nghiệm ngay tại Xe Điện Minh Anh.",
+    "image": "https://xediendonganh.vn/images/powelldd/dina/hong-blush.png",
+    "description": "Khám phá xe máy điện Powelldd Dina thiết kế thanh lịch, màu hồng Blush cá tính. Trải nghiệm ngay tại Xe Điện Đông Anh.",
     "sku": "POWELLDD-DINA",
     "brand": {
       "@type": "Brand",
@@ -27,7 +26,7 @@ export default function DinaLayout({
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://xedienminhanh.vn/dina",
+      "url": "https://xediendonganh.vn/dina",
       "priceCurrency": "VND",
       "price": "14990000",
       "priceValidUntil": "2026-12-31",
@@ -35,19 +34,17 @@ export default function DinaLayout({
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
-        "name": "Xe Điện Minh Anh"
+        "name": "Xe Điện Đông Anh"
       }
     }
   };
 
   return (
     <>
-      {/* NHÚNG SCHEMA VÀO ĐẦU TRANG */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
-      {/* RENDER NỘI DUNG GIAO DIỆN BÊN DƯỚI */}
       {children}
     </>
   );

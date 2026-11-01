@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Link from "next/link";
-import { Zap, ShieldCheck, BatteryCharging, Ruler, Gauge, Weight, ArrowRight, MapPin, Phone, Clock, X, CheckCircle2, Loader2, Star } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Clock, X, CheckCircle2, Loader2, Star, Zap, Shield, Battery, Navigation, ChevronDown } from "lucide-react";
 
+// --- ICONS ---
 const FacebookIcon = ({ size = 24 }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
 );
@@ -22,42 +23,45 @@ const TiktokIcon = ({ size = 24 }) => (
   </svg>
 );
 
+// --- FONTS & DATA ---
 const elegantFont = Plus_Jakarta_Sans({ 
   subsets: ["latin", "vietnamese"], 
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap"
 });
 
 const powellddBikes = [
-  { id: "wespan-pro", name: "Wespan pro", price: "19.990.000 VNĐ", range: "80 km", speed: "47 km/h", colors: ["Đen", "Trắng", "Vàng"], tagline: "Thiết kế vượt thời gian", coverImage: "/images/powelldd/wespan-pro/xam-bac-khi.png", signatureHex: "#D97706", category: "cao-cap" },
-  { id: "dimoon", name: "Dimoon", price: "17.990.000 VNĐ", range: "100 km", speed: "49 km/h", colors: ["Đen vũ trụ", "Trắng", "Xanh titan"], tagline: "Biểu tượng thời thượng mới", coverImage: "/images/powelldd/dimoon/trang-bang-suong.png", signatureHex: "#1E3A8A", category: "cao-cap" },
-  { id: "fancy", name: "Fancy", price: "17.990.000 VNĐ", range: "80 km", speed: "45 km/h", colors: ["Đen", "Trắng", "Xám"], tagline: "Phong cách Italia", coverImage: "/images/powelldd/fancy/den.png", signatureHex: "#DC2626", category: "cao-cap" },
-  { id: "shine", name: "Shine pro", price: "14.990.000 VNĐ", range: "70 km", speed: "25 km/h", colors: ["Cam đỏ", "Đen", "Hồng"], tagline: "Shine pro - Go to school", coverImage: "/images/powelldd/shine-pro/hong-blush.png", signatureHex: "#0D9488", category: "tieu-chuan" },
-  { id: "hazel", name: "Hazel", price: "14.490.000 VNĐ", range: "70 km", speed: "37 km/h", colors: ["Hồng", "Trắng", "Xanh"], tagline: "Ngọt ngào tỏa sáng", coverImage: "/images/powelldd/hazel/hong-dao.png", signatureHex: "#DB2777", category: "tieu-chuan" },
-  { id: "dina", name: "Dina", price: "14.990.000 VNĐ", range: "80 km", speed: "50 km/h", colors: ["Hồng Blush", "Trắng Frost", "Bạc Mist", "Xám Urban", "Đen Phantom"], tagline: "Thông minh & Thanh lịch", coverImage: "/images/powelldd/dina/hong-blush.png", signatureHex: "#F472B6", category: "tieu-chuan" },
-  { id: "walkmen", name: "Walkmen", price: "13.800.000 VNĐ", range: "70 km", speed: "45 km/h", colors: ["Đen", "Trắng", "Vàng"], tagline: "Tự do không sợ hãi", coverImage: "/images/powelldd/walkmen/trang-storm.png", signatureHex: "#EA580C", category: "tieu-chuan" },
-  { id: "sweetea", name: "Sweetea", price: "13.800.000 VNĐ", range: "70 km", speed: "35 km/h", colors: ["Kem", "Vàng", "Xám"], tagline: "Thanh xuân ngọt ngào", coverImage: "/images/powelldd/sweetea/kem-tra-sua.png", signatureHex: "#B45309", category: "tieu-chuan" },
-  { id: "eiko", name: "Eiko", price: "11.990.000 VNĐ", range: "60 km", speed: "32 km/h", colors: ["Trắng Ice", "Xanh Mint", "Đỏ Fire", "Xám Silver", "Đen Neon"], tagline: "Nhỏ gọn linh hoạt", coverImage: "/images/powelldd/eiko/do-fire.png", signatureHex: "#EF4444", category: "tieu-chuan" }
+  { id: "wespan-pro", name: "Wespan pro", price: "19.990.000 VNĐ", range: "80 km", speed: "47 km/h", tagline: "Thiết kế vượt thời gian", coverImage: "/images/powelldd/wespan-pro/xam-bac-khi.png", category: "cao-cap" },
+  { id: "dimoon", name: "Dimoon", price: "17.990.000 VNĐ", range: "100 km", speed: "49 km/h", tagline: "Biểu tượng thời thượng mới", coverImage: "/images/powelldd/dimoon/trang-bang-suong.png", category: "cao-cap" },
+  { id: "fancy", name: "Fancy", price: "17.990.000 VNĐ", range: "80 km", speed: "45 km/h", tagline: "Phong cách Italia", coverImage: "/images/powelldd/fancy/den.png", category: "cao-cap" },
+  { id: "shine", name: "Shine pro", price: "14.990.000 VNĐ", range: "70 km", speed: "25 km/h", tagline: "Shine pro - Go to school", coverImage: "/images/powelldd/shine-pro/hong-blush.png", category: "tieu-chuan" },
+  { id: "hazel", name: "Hazel", price: "14.490.000 VNĐ", range: "70 km", speed: "37 km/h", tagline: "Ngọt ngào tỏa sáng", coverImage: "/images/powelldd/hazel/hong-dao.png", category: "tieu-chuan" },
+  { id: "dina", name: "Dina", price: "14.990.000 VNĐ", range: "80 km", speed: "50 km/h", tagline: "Thông minh & Thanh lịch", coverImage: "/images/powelldd/dina/hong-blush.png", category: "tieu-chuan" },
+  { id: "walkmen", name: "Walkmen", price: "13.800.000 VNĐ", range: "70 km", speed: "45 km/h", tagline: "Tự do không sợ hãi", coverImage: "/images/powelldd/walkmen/trang-storm.png", category: "tieu-chuan" },
+  { id: "sweetea", name: "Sweetea", price: "13.800.000 VNĐ", range: "70 km", speed: "35 km/h", tagline: "Thanh xuân ngọt ngào", coverImage: "/images/powelldd/sweetea/kem-tra-sua.png", category: "tieu-chuan" },
+  { id: "eiko", name: "Eiko", price: "11.990.000 VNĐ", range: "60 km", speed: "32 km/h", tagline: "Nhỏ gọn linh hoạt", coverImage: "/images/powelldd/eiko/do-fire.png", category: "tieu-chuan" }
 ];
 
 const techSlides = [
-  { img: "/images/cong-nghe/ac-quy.jpg", title: "Hệ thống thu hồi năng lượng thông minh", desc: "Chuyển hóa động năng thành điện năng | Tự động sạc khi trượt, xuống dốc, phanh | Gia gia quãng đường di chuyển." },
-  { img: "/images/cong-nghe/dong-co.jpg", title: "Đột phá vượt bậc trong phát triển động cơ", desc: "Tối ưu hiệu suất | Giảm thiểu tiếng ồn | Tin cậy tuyệt đối." },
-  { img: "/images/cong-nghe/bo-dieu-khien.jpg", title: "Mang đến trải nghiệm lái an toàn và mạnh mẽ", desc: "Kết cấu ổn định vượt trội | Chiến lược điều khiển tiên tiến | Khả năng điều khiển chính xác | Tầm hoạt động xa hơn | Khả năng tương thích hoàn hảo." },
-  { img: "/images/cong-nghe/lop-khang-luc.jpg", title: "Tối đa hóa quãng đường di chuyển", desc: "Đèn chiếu sáng led tiêu thụ ít điện năng | Lốp giảm kháng lực lăn | Thiết kế tối ưu khí động học | Dây dẫn điện trở thấp." }
+  { img: "/images/cong-nghe/ac-quy.jpg", title: "Thu hồi năng lượng", desc: "Chuyển hóa động năng thành điện năng. Tự động sạc khi trượt, xuống dốc, phanh.", icon: <Battery className="text-blue-500" size={32} /> },
+  { img: "/images/cong-nghe/dong-co.jpg", title: "Động cơ đột phá", desc: "Tối ưu hiệu suất, giảm thiểu tiếng ồn và mang lại sự tin cậy tuyệt đối trên mọi cung đường.", icon: <Zap className="text-amber-500" size={32} /> },
+  { img: "/images/cong-nghe/bo-dieu-khien.jpg", title: "Điều khiển an toàn", desc: "Kết cấu ổn định, xử lý chuẩn xác mang đến tầm hoạt động xa và tương thích hoàn hảo.", icon: <Shield className="text-emerald-500" size={32} /> },
+  { img: "/images/cong-nghe/lop-khang-luc.jpg", title: "Khí động học tối ưu", desc: "Đèn LED tiết kiệm, lốp giảm kháng lực lăn giúp tối đa hóa quãng đường di chuyển.", icon: <Navigation className="text-purple-500" size={32} /> }
 ];
 
-const fadeUp: Variants = { hidden: { opacity: 0, y: 50 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } } };
-const stagger: Variants = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.2 } } };
+// --- ANIMATION VARIANTS ---
+const fadeUp: Variants = { hidden: { opacity: 0, y: 40 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } };
+const stagger: Variants = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } };
+const scaleIn: Variants = { hidden: { opacity: 0, scale: 0.9 }, show: { opacity: 1, scale: 1, transition: { duration: 0.7, ease: "easeOut" } } };
 
 export default function Home() {
   const [filter, setFilter] = useState("all");
   const filteredBikes = powellddBikes.filter(bike => filter === "all" ? true : bike.category === filter);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formStatus, setFormStatus] = useState("idle");
   const [formData, setFormData] = useState({ name: "", phone: "", model: "Chưa xác định", note: "" });
+  const [scrolled, setScrolled] = useState(false);
 
   const bannerImages = [
     "/images/banner/banner-1.png",
@@ -66,291 +70,280 @@ export default function Home() {
     "/images/banner/banner-4.jpg" 
   ];
   const [currentBanner, setCurrentBanner] = useState(0);
-  const [currentTech, setCurrentTech] = useState(0);
 
+  // Hiệu ứng thay đổi Header khi cuộn
   useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setCurrentBanner((prev) => (prev === bannerImages.length - 1 ? 0 : prev + 1));
-    }, 5000); 
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Slide Banner tự động
+  useEffect(() => {
+    const slideInterval = setInterval(() => setCurrentBanner((prev) => (prev === bannerImages.length - 1 ? 0 : prev + 1)), 6000); 
     return () => clearInterval(slideInterval);
   }, [bannerImages.length]);
 
-  useEffect(() => {
-    const techInterval = setInterval(() => {
-      setCurrentTech((prev) => (prev === techSlides.length - 1 ? 0 : prev + 1));
-    }, 4000); 
-    return () => clearInterval(techInterval);
-  }, []);
-
+  // Xử lý Form Đăng ký Telegram
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus("submitting");
-    const scriptURL = "https://script.google.com/macros/s/AKfycbzb2G1ttnSb-J3xmO6dNoRrmVWFIXf3iLo00Sf8H_NGkSyvujAvbrZfGfBjvvqNNAhH/exec"; 
     try {
-      await fetch(scriptURL, {
+      const response = await fetch('/api/dang-ky-lai-thu', {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
       });
-      setFormStatus("success");
-      setTimeout(() => {
-        setIsModalOpen(false);
+      const result = await response.json();
+      if (result.success) {
+        setFormStatus("success");
+        setTimeout(() => { 
+          setIsModalOpen(false); 
+          setFormStatus("idle"); 
+          setFormData({ name: "", phone: "", model: "Chưa xác định", note: "" }); 
+        }, 3000);
+      } else {
+        alert(result.message || "Có lỗi xảy ra, vui lòng thử lại.");
         setFormStatus("idle");
-        setFormData({ name: "", phone: "", model: "Chưa xác định", note: "" });
-      }, 3000);
+      }
     } catch (error) {
-      console.error("Lỗi gửi form:", error);
-      setFormStatus("error");
+      console.error(error);
+      alert("Không thể kết nối đến máy chủ.");
+      setFormStatus("idle");
     }
   };
 
   return (
-    <main className={`min-h-screen bg-[#F4F4F6] text-neutral-800 ${elegantFont.className} overflow-x-hidden font-light relative`}>
+    <main className={`min-h-screen bg-slate-50 text-slate-800 ${elegantFont.className} overflow-x-hidden selection:bg-blue-600 selection:text-white`}>
       
-      <motion.header initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.8 }} className="fixed w-full top-0 bg-white/80 backdrop-blur-2xl z-50 border-b border-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <motion.div whileHover={{ scale: 1.05 }} className="flex flex-col cursor-pointer">
-            <h1 className="text-2xl font-semibold tracking-widest uppercase text-black leading-none">Minh Anh</h1>
-            <span className="text-[10px] font-medium tracking-widest text-neutral-500 uppercase mt-1">Xe điện Long Biên</span>
-          </motion.div>
+      {/* HEADER: Thiết kế Dynamic trong suốt -> Nền trắng khi scroll + Logo Thực Tế */}
+      <header className={`fixed w-full top-0 z-50 transition-all duration-500 border-b ${scrolled ? 'bg-white/90 backdrop-blur-xl border-slate-200 shadow-lg shadow-slate-200/50 py-3' : 'bg-transparent border-transparent py-5'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           
-          <nav className="hidden lg:flex gap-10 text-[13px] font-semibold uppercase tracking-widest text-neutral-600">
-            <Link href="/" className="hover:text-black transition-colors">Trang chủ</Link>
-            <Link href="/#san-pham" className="hover:text-black transition-colors">Sản phẩm</Link>
-            <Link href="/#cong-nghe" className="hover:text-black transition-colors">Công nghệ</Link>
-            <Link href="/tin-tuc" className="hover:text-black transition-colors">Tin tức</Link>
+          {/* Cập nhật dùng Logo File /favicon.ico (Sửa bg-black thành bg-white) */}
+          <Link href="/" className="flex items-center gap-3 cursor-pointer group">
+            <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-green-500/20 group-hover:scale-105 transition-transform duration-300 border border-slate-100 bg-white flex items-center justify-center p-1">
+              <img src="/favicon.ico" alt="Xe Điện Đông Anh" className="w-full h-full object-contain" />
+            </div>
+            <div className="flex flex-col">
+              <h1 className="text-2xl font-black tracking-wider uppercase text-slate-900 leading-none">Đông Anh</h1>
+              <span className="text-[10px] font-bold tracking-widest text-blue-600 uppercase mt-1">Hệ sinh thái xe điện</span>
+            </div>
+          </Link>
+          
+          <nav className="hidden lg:flex gap-10 text-[13px] font-extrabold uppercase tracking-widest text-slate-500">
+            <Link href="/" className="hover:text-blue-600 transition-colors">Trang chủ</Link>
+            <Link href="/#san-pham" className="hover:text-blue-600 transition-colors">Sản phẩm</Link>
+            <Link href="/#cong-nghe" className="hover:text-blue-600 transition-colors">Công nghệ</Link>
+            <Link href="/tin-tuc" className="hover:text-blue-600 transition-colors">Tin tức</Link>
           </nav>
 
           <div className="flex items-center gap-4">
-            <motion.button onClick={() => setIsModalOpen(true)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden md:flex items-center gap-2 bg-black text-white px-7 py-3 rounded-full text-sm font-semibold shadow-xl shadow-black/20">
+            <button onClick={() => setIsModalOpen(true)} className="hidden md:flex items-center gap-2 bg-slate-900 hover:bg-blue-600 text-white px-8 py-3.5 rounded-full text-sm font-bold transition-all duration-300 shadow-xl shadow-slate-900/20 hover:shadow-blue-600/30 hover:-translate-y-0.5">
               Nhận tư vấn <ArrowRight size={16} />
-            </motion.button>
-            
-            <button className="lg:hidden text-black p-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            </button>
+            <button className="lg:hidden text-slate-900 p-2 bg-white rounded-full shadow-md" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X size={24} /> : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
                 </svg>
               )}
             </button>
           </div>
         </div>
+      </header>
 
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="lg:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-b border-neutral-100 flex flex-col origin-top"
-            >
-              <div className="px-6 py-6 flex flex-col gap-4 text-[13px] font-semibold uppercase tracking-widest text-neutral-600">
-                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-black transition-colors pb-3 border-b border-neutral-100">Trang chủ</Link>
-                <Link href="/#san-pham" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-black transition-colors pb-3 border-b border-neutral-100">Sản phẩm</Link>
-                <Link href="/#cong-nghe" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-black transition-colors pb-3 border-b border-neutral-100">Công nghệ</Link>
-                <Link href="/tin-tuc" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-black transition-colors pb-3 border-b border-neutral-100">Tin tức</Link>
-                <button onClick={() => { setIsMobileMenuOpen(false); setIsModalOpen(true); }} className="md:hidden mt-2 bg-black text-white px-7 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-black/20">
-                  Nhận tư vấn <ArrowRight size={16} />
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.header>
-
-      <section className="pt-32 pb-16 px-6 max-w-[1400px] mx-auto flex flex-col items-center">
-        <motion.div variants={stagger} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-12 mt-8">
-          <motion.div variants={fadeUp} className="inline-block px-5 py-2 rounded-full border border-neutral-200 bg-white shadow-sm mb-6">
-            <span className="text-xs font-bold tracking-[0.3em] uppercase text-black">Kỷ nguyên di chuyển xanh</span>
+      {/* MOBILE MENU */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div initial={{ opacity: 0, y: -20, filter: 'blur(10px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }} className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl pt-28 px-6 border-b border-slate-100 shadow-2xl">
+            <div className="flex flex-col gap-6 text-xl font-black uppercase tracking-widest text-slate-700">
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600 border-b border-slate-100 pb-4 flex justify-between items-center">Trang chủ <ChevronDown size={20} className="-rotate-90 text-slate-300"/></Link>
+              <Link href="/#san-pham" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600 border-b border-slate-100 pb-4 flex justify-between items-center">Sản phẩm <ChevronDown size={20} className="-rotate-90 text-slate-300"/></Link>
+              <Link href="/#cong-nghe" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600 border-b border-slate-100 pb-4 flex justify-between items-center">Công nghệ <ChevronDown size={20} className="-rotate-90 text-slate-300"/></Link>
+              <Link href="/tin-tuc" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-blue-600 border-b border-slate-100 pb-4 flex justify-between items-center">Tin tức <ChevronDown size={20} className="-rotate-90 text-slate-300"/></Link>
+              <button onClick={() => { setIsMobileMenuOpen(false); setIsModalOpen(true); }} className="mt-8 bg-blue-600 text-white px-6 py-5 rounded-2xl text-base font-bold flex items-center justify-center gap-2 shadow-xl shadow-blue-600/30">
+                Đăng ký tư vấn ngay <ArrowRight size={20} />
+              </button>
+            </div>
           </motion.div>
-          <motion.h2 variants={fadeUp} className="text-5xl md:text-7xl font-semibold mb-6 tracking-tighter leading-[1.1] text-black drop-shadow-sm">
-            ĐỊNH HÌNH <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-800 to-neutral-400 italic font-light pr-2">PHONG CÁCH SỐNG</span>
+        )}
+      </AnimatePresence>
+
+      {/* 1. HERO SECTION: Nền Gradient sáng, Text đổ bóng mạnh mẽ */}
+      <section className="relative pt-40 pb-20 px-6 max-w-7xl mx-auto flex flex-col items-center">
+        {/* Abstract Background Elements */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/50 via-white to-transparent -z-10 blur-3xl"></div>
+        
+        <motion.div variants={stagger} initial="hidden" animate="show" className="text-center max-w-4xl mx-auto mb-16 mt-8">
+          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-blue-200 bg-blue-50/80 text-blue-700 mb-8 shadow-sm backdrop-blur-sm">
+            <span className="relative flex h-2.5 w-2.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span><span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span></span>
+            <span className="text-xs font-bold tracking-[0.2em] uppercase">Xu hướng di chuyển 2026</span>
+          </motion.div>
+          <motion.h2 variants={fadeUp} className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[1.05] text-slate-900 drop-shadow-sm">
+            KỶ NGUYÊN <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400">TỐC ĐỘ MỚI</span>
           </motion.h2>
-          <motion.p variants={fadeUp} className="text-lg md:text-xl font-medium mb-8 text-neutral-600 tracking-wide max-w-2xl mx-auto leading-relaxed">
-            Hệ thống xe điện Minh Anh - xe điện Long Biên chuyên phân phối các dòng xe máy điện Powelldd, TMT,....chính hãng hàng đầu Việt Nam.
+          <motion.p variants={fadeUp} className="text-lg md:text-xl mb-10 text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+            Khám phá bộ sưu tập xe máy điện chính hãng Powelldd. Thiết kế thời thượng, công năng bứt phá và trải nghiệm lái hoàn hảo.
           </motion.p>
-          <motion.a variants={fadeUp} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#san-pham" className="inline-flex items-center gap-3 bg-black text-white px-12 py-5 rounded-full font-semibold text-sm uppercase tracking-widest shadow-xl shadow-black/20">
-            Khám phá ngay <ArrowRight size={18} />
-          </motion.a>
+          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row justify-center gap-4 px-4">
+            <a href="#san-pham" className="bg-slate-900 text-white px-10 py-4.5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-blue-600 transition-all duration-300 shadow-xl shadow-slate-900/20 hover:shadow-blue-600/30 hover:-translate-y-1">Xem bộ sưu tập</a>
+            <button onClick={() => setIsModalOpen(true)} className="bg-white border-2 border-slate-200 text-slate-900 px-10 py-4.5 rounded-full font-bold text-sm uppercase tracking-widest hover:border-slate-900 transition-all duration-300">Đăng ký lái thử</button>
+          </motion.div>
         </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }} 
-          animate={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.8, delay: 0.4 }} 
-          className="relative w-full aspect-square sm:aspect-[4/3] md:aspect-video lg:aspect-[16/7] rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl shadow-neutral-300/60 bg-neutral-100 border-4 border-white"
-        >
-          <AnimatePresence mode="popLayout">
-            <motion.img 
-              key={currentBanner}
-              initial={{ opacity: 0, scale: 1.02 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              src={bannerImages[currentBanner]} 
-              alt={`Banner ${currentBanner + 1}`} 
-              className="w-full h-full object-contain bg-neutral-100 absolute top-0 left-0" 
-              onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=2070&auto=format&fit=crop"; }} 
-            />
-          </AnimatePresence>
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20 bg-black/40 px-5 py-2.5 rounded-full backdrop-blur-md">
-            {bannerImages.map((_, idx) => (
-              <button 
-                key={idx} 
-                onClick={() => setCurrentBanner(idx)}
-                className={`h-2.5 rounded-full transition-all duration-500 ${currentBanner === idx ? 'bg-white w-10' : 'bg-white/50 w-2.5 hover:bg-white/80'}`}
+        {/* Banner Slider với bo góc sâu hơn và đổ bóng */}
+        <motion.div variants={scaleIn} initial="hidden" animate="show" className="w-full relative px-2 md:px-0">
+          <div className="relative w-full aspect-square md:aspect-[21/9] rounded-[2.5rem] overflow-hidden bg-white border-8 border-white shadow-2xl shadow-slate-300/60">
+            <AnimatePresence mode="wait">
+              <motion.img 
+                key={currentBanner}
+                initial={{ opacity: 0, scale: 1.05 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                src={bannerImages[currentBanner]} 
+                alt="Banner Xe Điện" 
+                className="w-full h-full object-cover" 
               />
-            ))}
+            </AnimatePresence>
+            
+            {/* Overlay Gradient cho text (nếu có) */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20 bg-black/20 backdrop-blur-md p-2 rounded-full">
+              {bannerImages.map((_, idx) => (
+                <button key={idx} onClick={() => setCurrentBanner(idx)} className={`w-10 h-1.5 rounded-full transition-all duration-300 ${currentBanner === idx ? 'bg-white' : 'bg-white/40 hover:bg-white/70'}`} />
+              ))}
+            </div>
           </div>
         </motion.div>
       </section>
 
-      <div className="w-full bg-black py-4 border-y border-neutral-800 overflow-hidden flex whitespace-nowrap">
-        <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 35, repeat: Infinity }} className="flex text-white font-semibold text-sm tracking-[0.2em] uppercase">
-          {[...Array(10)].map((_, i) => (
-            <span key={i} className="mx-8 flex items-center gap-8">
-              BẢO HÀNH 2 NĂM <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
-              TRẢ GÓP 0% <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
-              GIAO XE TẬN NƠI <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
-              THU CŨ ĐỔI MỚI <span className="w-2 h-2 rounded-full bg-neutral-600"></span>
+      {/* 2. DẢI TICKER: Màu xanh chủ đạo để hút mắt */}
+      <div className="w-full bg-blue-600 py-5 overflow-hidden flex whitespace-nowrap mt-8">
+        <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 30, repeat: Infinity }} className="flex text-white font-extrabold text-sm tracking-[0.25em] uppercase">
+          {[...Array(15)].map((_, i) => (
+            <span key={i} className="mx-10 flex items-center gap-10">
+              BẢO HÀNH 2 NĂM <span className="w-2 h-2 rounded-full bg-cyan-300"></span>
+              TRẢ GÓP 0% <span className="w-2 h-2 rounded-full bg-cyan-300"></span>
+              GIAO XE TẬN NƠI <span className="w-2 h-2 rounded-full bg-cyan-300"></span>
+              THU CŨ ĐỔI MỚI <span className="w-2 h-2 rounded-full bg-cyan-300"></span>
             </span>
           ))}
         </motion.div>
       </div>
 
-      <section id="san-pham" className="max-w-7xl mx-auto px-6 pb-20 pt-24">
-        <div className="mb-16 text-center flex flex-col items-center">
-          <h3 className="text-4xl md:text-5xl font-semibold uppercase mb-6 tracking-widest">Bộ sưu tập <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-black to-neutral-400 font-light italic">Powelldd</span></h3>
-          <div className="flex bg-white p-2 rounded-full shadow-sm border border-neutral-100 mt-4">
-            <button onClick={() => setFilter("all")} className={`px-8 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.1em] transition-all ${filter === "all" ? "bg-black text-white" : "text-neutral-500 hover:bg-neutral-50"}`}>Tất cả</button>
-            <button onClick={() => setFilter("cao-cap")} className={`px-8 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.1em] transition-all ${filter === "cao-cap" ? "bg-black text-white" : "text-neutral-500 hover:bg-neutral-50"}`}>Cao Cấp</button>
-            <button onClick={() => setFilter("tieu-chuan")} className={`px-8 py-3 rounded-full text-xs font-semibold uppercase tracking-[0.1em] transition-all ${filter === "tieu-chuan" ? "bg-black text-white" : "text-neutral-500 hover:bg-neutral-50"}`}>Tiêu Chuẩn</button>
-          </div>
-        </div>
-
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          <AnimatePresence>
-            {filteredBikes.map((bike) => (
-              <motion.div layout initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.5 }} key={bike.id} whileHover={{ y: -15 }} className="group bg-white rounded-[2.5rem] p-6 shadow-sm hover:shadow-2xl hover:shadow-neutral-200/50 transition-all border border-neutral-100 flex flex-col cursor-pointer relative overflow-hidden">
-                {(bike.id === "dimoon" || bike.id === "wespan-pro" || bike.id === "shine") && (
-                  <div className="absolute top-0 right-10 z-30 filter drop-shadow-md">
-                    <div className="bg-gradient-to-b from-red-500 to-red-700 w-11 h-14 flex flex-col items-center pt-2.5 [clip-path:polygon(0_0,100%_0,100%_100%,50%_85%,0_100%)]">
-                      <div className="w-1.5 h-1.5 bg-white/40 rounded-full shadow-inner mb-1"></div>
-                      <span className="text-white text-[10px] font-bold uppercase tracking-widest">Hot</span>
-                    </div>
-                  </div>
-                )}
-                <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full opacity-10 blur-3xl group-hover:opacity-40 transition-opacity duration-700" style={{ backgroundColor: bike.signatureHex }}></div>
-                <div className="relative w-full aspect-[4/3] bg-neutral-50 rounded-3xl mb-8 overflow-hidden flex items-center justify-center">
-                  <motion.img whileHover={{ scale: 1.1, rotate: 2 }} transition={{ duration: 0.7 }} src={bike.coverImage} alt={bike.name} className="w-full h-full object-contain p-6 drop-shadow-xl z-10" />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-black px-4 py-2 rounded-full text-xs font-semibold tracking-widest shadow-sm z-20">{bike.price}</div>
-                </div>
-                <div className="px-2">
-                  <h4 className="text-2xl font-semibold mb-1 tracking-wide" style={{ color: bike.signatureHex }}>{bike.name}</h4>
-                  <p className="text-neutral-500 text-xs mb-6 font-medium italic">{bike.tagline}</p>
-                  <div className="flex justify-between items-center bg-[#F8F8F8] p-4 rounded-2xl mb-8 border border-neutral-50">
-                    <div className="text-center w-full">
-                      <p className="text-[9px] text-neutral-400 font-medium mb-1 tracking-widest uppercase">Quãng đường</p>
-                      <p className="font-semibold text-lg">{bike.range}</p>
-                    </div>
-                    <div className="w-px h-8 bg-neutral-200 mx-2"></div>
-                    <div className="text-center w-full">
-                      <p className="text-[9px] text-neutral-400 font-medium mb-1 tracking-widest uppercase">Vận tốc</p>
-                      <p className="font-semibold text-lg">{bike.speed}</p>
-                    </div>
-                  </div>
-                </div>
-                <Link href={`/${bike.id}`} style={{ backgroundColor: bike.signatureHex }} className="w-full block text-center text-white py-4 rounded-2xl font-medium text-sm uppercase tracking-widest shadow-md mt-auto hover:opacity-90 transition-opacity">Xem chi tiết</Link>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      </section>
-
-      <section id="cong-nghe" className="py-24 bg-white border-y border-neutral-100 overflow-hidden">
+      {/* 3. SẢN PHẨM: Card hiệu ứng Hover Float mạnh */}
+      <section id="san-pham" className="bg-slate-100 py-32">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12 text-center flex flex-col items-center">
-            <h3 className="text-4xl md:text-5xl font-semibold uppercase mb-4 tracking-widest text-black">
-              Công nghệ
-            </h3>
-            <div className="w-16 h-1 bg-red-600 mx-auto rounded-full"></div>
+          <div className="mb-20 text-center">
+            <h3 className="text-4xl md:text-5xl font-black uppercase tracking-widest text-slate-900 mb-6 drop-shadow-sm">Bộ sưu tập 2026</h3>
+            <p className="text-slate-500 text-lg font-medium mb-10 max-w-2xl mx-auto">Thiết kế công thái học. Khung gầm hợp kim siêu nhẹ. Trải nghiệm cảm giác làm chủ mọi cung đường.</p>
+            
+            <div className="inline-flex bg-white p-2 rounded-full shadow-lg shadow-slate-200/50">
+              {["all", "cao-cap", "tieu-chuan"].map((cat) => (
+                <button key={cat} onClick={() => setFilter(cat)} className={`px-10 py-3.5 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300 ${filter === cat ? "bg-slate-900 text-white shadow-xl shadow-slate-900/20 scale-105" : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"}`}>
+                  {cat === "all" ? "Tất cả dòng xe" : cat.replace("-", " ")}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="relative h-[500px] w-full flex justify-center items-center perspective-1000">
-            <AnimatePresence initial={false}>
-              {techSlides.map((slide, index) => {
-                const diff = (index - currentTech + techSlides.length) % techSlides.length;
-                let x = "0%";
-                let scale = 0.5;
-                let opacity = 0;
-                let zIndex = 0;
-
-                if (diff === 0) { 
-                  x = "0%"; scale = 1.1; opacity = 1; zIndex = 20; 
-                } else if (diff === 1) { 
-                  x = "115%"; scale = 0.75; opacity = 0.4; zIndex = 10; 
-                } else if (diff === techSlides.length - 1) { 
-                  x = "-115%"; scale = 0.75; opacity = 0.4; zIndex = 10; 
-                }
-
-                return (
-                  <motion.div
-                    key={index}
-                    animate={{ x, scale, opacity, zIndex }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
-                    className="absolute w-[90%] max-w-[320px] md:max-w-[420px] flex flex-col items-center text-center cursor-pointer"
-                    onClick={() => setCurrentTech(index)}
-                  >
-                    <div className="w-full h-[220px] md:h-[260px] mb-6 flex items-center justify-center">
-                      <img 
-                        src={slide.img} 
-                        alt={slide.title} 
-                        className={`max-w-full max-h-full object-contain mix-blend-multiply transition-all duration-500 ${diff === 0 ? 'drop-shadow-2xl scale-105' : 'drop-shadow-none grayscale-[20%]'}`} 
-                      />
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <AnimatePresence>
+              {filteredBikes.map((bike) => (
+                <motion.div layout initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9, filter: 'blur(5px)' }} transition={{ duration: 0.4 }} key={bike.id} className="group bg-white rounded-[2.5rem] p-6 transition-all duration-500 relative overflow-hidden flex flex-col shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-blue-900/10 hover:-translate-y-2 border border-white hover:border-blue-50">
+                  
+                  {/* Badge */}
+                  {(bike.id === "dimoon" || bike.id === "wespan-pro") && (
+                    <div className="absolute top-6 right-6 bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full z-20 shadow-md">Best Seller</div>
+                  )}
+                  
+                  <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-slate-50 to-slate-100 rounded-3xl mb-8 flex items-center justify-center p-6 transition-transform duration-700 group-hover:scale-105">
+                    <img src={bike.coverImage} alt={bike.name} className="w-full h-full object-contain z-10 filter drop-shadow-2xl" />
+                    {/* Shadow Decor dưới gầm xe */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-4 bg-black/10 blur-xl rounded-full"></div>
+                  </div>
+                  
+                  <div className="flex-1 flex flex-col px-3">
+                    <h4 className="text-2xl font-black mb-1.5 text-slate-900">{bike.name}</h4>
+                    <p className="text-blue-600 text-xs mb-8 uppercase tracking-widest font-bold">{bike.tagline}</p>
+                    
+                    <div className="flex justify-between items-center bg-slate-50/80 p-5 rounded-2xl mb-8 border border-slate-100/50">
+                      <div className="text-center w-full">
+                        <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1.5 font-bold">Quãng đường</p>
+                        <p className="font-black text-slate-800 text-lg">{bike.range}</p>
+                      </div>
+                      <div className="w-px h-10 bg-slate-200 mx-2"></div>
+                      <div className="text-center w-full">
+                        <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1.5 font-bold">Vận tốc</p>
+                        <p className="font-black text-slate-800 text-lg">{bike.speed}</p>
+                      </div>
                     </div>
-
-                    <div className={`px-2 transition-all duration-500 flex flex-col items-center justify-start h-28 ${diff === 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                      <p className="text-sm md:text-lg font-bold text-black mb-3">{slide.title}</p>
-                      <p className="text-xs md:text-sm text-neutral-500 leading-relaxed font-medium">
-                        {slide.desc}
-                      </p>
+                    
+                    <div className="mt-auto flex items-center justify-between">
+                      <span className="text-xl font-black text-slate-900">{bike.price}</span>
+                      <Link href={`/${bike.id}`} className="w-12 h-12 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-blue-600 hover:rotate-[-45deg] transition-all duration-300 shadow-md"><ArrowRight size={20} /></Link>
                     </div>
-                  </motion.div>
-                );
-              })}
+                  </div>
+                </motion.div>
+              ))}
             </AnimatePresence>
-          </div>
+          </motion.div>
+        </div>
+      </section>
 
-          <div className="flex justify-center gap-3 mt-4">
-            {techSlides.map((_, idx) => (
-              <button 
-                key={idx} 
-                onClick={() => setCurrentTech(idx)}
-                className={`h-2.5 rounded-full transition-all duration-500 ${currentTech === idx ? 'bg-red-700 w-10' : 'bg-neutral-300 w-2.5 hover:bg-neutral-400'}`}
-              />
+      {/* 4. CÔNG NGHỆ */}
+      <section id="cong-nghe" className="py-32 bg-white relative overflow-hidden">
+        {/* Background Decor */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/4"></div>
+
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-20 text-center">
+            <h3 className="text-4xl md:text-5xl font-black uppercase tracking-widest text-slate-900 drop-shadow-sm">Lõi công nghệ</h3>
+            <p className="text-slate-500 mt-6 font-medium text-lg max-w-2xl mx-auto">Hệ sinh thái kỹ thuật vượt trội được tích hợp trên mọi dòng xe, mang đến sự an toàn và hiệu suất tối đa.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {techSlides.map((slide, idx) => (
+              <motion.div key={idx} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.15, duration: 0.6 }} viewport={{ once: true, margin: "-50px" }} className="bg-white border border-slate-100 shadow-xl shadow-slate-200/40 rounded-[2rem] p-8 group hover:-translate-y-3 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-full -z-10 transition-transform group-hover:scale-150"></div>
+                
+                <div className="w-16 h-16 bg-white border border-slate-100 shadow-sm rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-blue-50 transition-all duration-300">
+                  {slide.icon}
+                </div>
+                <h4 className="text-xl font-black text-slate-900 mb-4">{slide.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed font-medium">{slide.desc}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-32 bg-black text-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h3 className="text-4xl md:text-5xl font-semibold uppercase mb-16 text-center tracking-widest">Khách hàng <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 font-light italic">nói gì?</span></h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* 5. KHÁCH HÀNG */}
+      <section className="py-32 bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <h3 className="text-3xl md:text-5xl font-black uppercase mb-20 text-center tracking-widest">
+            Góc nhìn <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">khách hàng</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[
-              { name: "Anh Tuấn", bike: "Dimoon", text: "Thiết kế xe tinh tế, chạy êm ru ngoài phố cổ. Mình chạy cả tuần mới phải sạc 1 lần, rất ưng ý dịch vụ tại xe điện Minh Anh - Long Biên." },
-              { name: "Chị Hạnh", bike: "Hazel", text: "Mua cho con gái đi học, màu hồng ngoài đời nhìn sang hơn trong ảnh. Xe nhẹ, dễ dắt, phanh an toàn. Chấm 10 điểm cho xe điện Minh Anh - Long Biên!" },
-              { name: "Bạn Đức", bike: "Wespan pro", text: "Thích form dáng cổ điển này từ lâu, qua showroom chạy thử phát là chốt cọc luôn. Giá cả hợp lý so với chất lượng hoàn thiện. Cảm ơn xe điện Minh Anh - Long Biên!" }
+              { name: "Anh Tuấn", bike: "Dimoon", text: "Trải nghiệm vận hành ấn tượng. Xe chạy êm, thiết kế đậm chất tương lai. Mua tại Xe điện Đông Anh chính sách bảo hành cực tốt." },
+              { name: "Chị Hạnh", bike: "Hazel", text: "Thiết kế nhỏ gọn, dễ luồn lách. Pin trâu bò đi mãi chưa thấy hết. Các bạn nhân viên Đông Anh tư vấn rất nhiệt tình." },
+              { name: "Bạn Đức", bike: "Wespan pro", text: "Chốt ngay từ cái nhìn đầu tiên. Đèn LED siêu sáng, lốp bám đường cực chắc. Vote 5 sao cho chất lượng dịch vụ." }
             ].map((review, idx) => (
-              <motion.div key={idx} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.2 }} viewport={{ once: true }} className="bg-neutral-900 p-10 rounded-[2rem] border border-neutral-800">
-                <div className="flex gap-1 text-yellow-400 mb-6">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+              <motion.div key={idx} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: idx * 0.2, duration: 0.6 }} viewport={{ once: true }} className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 p-10 rounded-[2.5rem] relative hover:bg-slate-800 transition-colors">
+                <div className="flex gap-1.5 text-amber-400 mb-8">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={20} fill="currentColor" />)}
                 </div>
-                <p className="text-neutral-300 text-sm leading-relaxed mb-8 italic font-light">"{review.text}"</p>
-                <div>
-                  <p className="font-semibold text-lg">{review.name}</p>
-                  <p className="text-neutral-500 text-xs font-medium uppercase tracking-[0.2em] mt-1">Đã mua {review.bike}</p>
+                <p className="text-slate-300 text-base leading-relaxed mb-10 font-medium italic">"{review.text}"</p>
+                <div className="flex items-center gap-5 mt-auto">
+                  <div className="w-14 h-14 bg-gradient-to-tr from-blue-600 to-cyan-500 rounded-full flex items-center justify-center font-black text-lg text-white shadow-lg">{review.name.charAt(0)}</div>
+                  <div>
+                    <p className="font-black text-white text-lg">{review.name}</p>
+                    <p className="text-cyan-400 text-[10px] font-bold uppercase tracking-widest mt-1.5">Đã mua {review.bike}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -358,168 +351,175 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-32 bg-white text-black text-center px-6 border-b border-neutral-100">
-        <motion.div initial={{ scale: 0.95, opacity: 0 }} whileInView={{ scale: 1, opacity: 1 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-6xl font-semibold mb-8 tracking-widest uppercase flex flex-col gap-y-4 md:gap-y-6">
-            <span>TRẢI NGHIỆM</span>
-            <span>ĐẲNG CẤP</span>
+      {/* 6. CALL TO ACTION: Banner Xanh dương nổi bật */}
+      <section className="py-28 bg-gradient-to-br from-blue-600 to-indigo-700 text-white text-center px-6 relative overflow-hidden">
+        {/* Decor */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay"></div>
+
+        <motion.div initial={{ y: 40, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="max-w-4xl mx-auto relative z-10">
+          <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-widest uppercase text-white drop-shadow-lg">
+            BẮT ĐẦU HÀNH TRÌNH
           </h2>
-          <p className="text-lg font-light mb-12 text-neutral-500">Đến ngay showroom Xe điện Minh Anh - Xe điện Long Biên hoặc để lại số điện thoại để nhận voucher ưu đãi lên đến 2 triệu đồng.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="bg-black text-white px-12 py-4 rounded-full font-medium uppercase tracking-[0.2em] text-sm hover:scale-105 transition-transform shadow-lg"
-            >
+          <p className="text-xl font-medium mb-12 text-blue-100 max-w-2xl mx-auto">Đến ngay showroom Xe điện Đông Anh hoặc liên hệ hotline để nhận voucher ưu đãi lên đến 2 triệu đồng.</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-5">
+            <button onClick={() => setIsModalOpen(true)} className="bg-white text-blue-700 px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm hover:scale-105 transition-transform duration-300 shadow-2xl shadow-black/20">
               Đăng ký lái thử
             </button>
-            <a href="tel:0917747777" className="inline-flex items-center justify-center bg-transparent border border-black text-black px-12 py-4 rounded-full font-medium uppercase tracking-[0.2em] text-sm hover:bg-neutral-50 transition-colors">
-              Gọi Hotline ngay
+            <a href="tel:0582376666" className="inline-flex items-center justify-center bg-transparent border-2 border-white/50 text-white px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm hover:bg-white hover:text-blue-700 hover:border-white transition-all duration-300">
+              058.237.6666
             </a>
           </div>
         </motion.div>
       </section>
 
-      <section id="showroom" className="py-24 bg-[#F4F4F6] border-t border-neutral-200">
+      {/* 7. SHOWROOM */}
+      <section id="showroom" className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-8">
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-                <span className="text-xs font-semibold tracking-[0.3em] uppercase text-neutral-400 block mb-3">Ghé thăm chúng tôi</span>
-                <h3 className="text-3xl md:text-4xl font-semibold uppercase tracking-widest text-black mb-6">SHOWROOM <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-black via-neutral-600 to-neutral-400 font-light italic">MINH ANH</span></h3>
-                <p className="text-neutral-500 font-light leading-relaxed mb-8">Không gian trưng bày hiện đại tại xe điện Minh Anh - xe điện Long Biên, đầy đủ các phiên bản và màu sắc mới nhất của Powelldd, TMT.... Kính mời quý khách đến trải nghiệm thực tế và lái thử xe trực tiếp.</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+            <div className="lg:col-span-5 space-y-10">
+              <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
+                <span className="text-xs font-black tracking-[0.3em] uppercase text-blue-600 block mb-4">Hệ thống phân phối</span>
+                <h3 className="text-5xl font-black uppercase tracking-widest text-slate-900 mb-8 leading-[1.1]">SHOWROOM <br />ĐÔNG ANH</h3>
+                <p className="text-slate-500 font-medium text-lg leading-relaxed mb-10">Không gian trưng bày tiêu chuẩn 5 sao với đầy đủ các phiên bản xe điện mới nhất. Kính mời quý khách đến trải nghiệm thực tế.</p>
               </motion.div>
 
-              <div className="space-y-6 text-neutral-700 font-light text-sm">
-                <div className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-neutral-100 shadow-sm">
-                  <MapPin className="shrink-0 text-black mt-0.5" size={20} />
+              <div className="space-y-5">
+                <div className="flex items-center gap-5 p-6 bg-slate-50 rounded-[2rem] hover:bg-blue-50/50 transition-colors border border-slate-100">
+                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-slate-100"><MapPin className="text-blue-600" size={24} /></div>
                   <div>
-                    <p className="font-semibold text-black uppercase tracking-wider text-xs mb-1">Địa chỉ</p>
-                    <a href="https://www.google.com/maps/search/?api=1&query=547+Nguyễn+Văn+Cừ,+Bồ+Đề,+Hà+Nội" target="_blank" rel="noreferrer" className="hover:text-blue-600 transition-colors">
-                      Số 547 Nguyễn Văn Cừ, Bồ Đề, Hà Nội
-                    </a>
+                    <p className="font-black text-slate-900 uppercase tracking-widest text-xs mb-1.5">Địa chỉ</p>
+                    <p className="text-slate-600 font-medium">Đông Anh, Hà Nội</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-neutral-100 shadow-sm">
-                  <Phone className="shrink-0 text-black mt-0.5" size={20} />
+                <div className="flex items-center gap-5 p-6 bg-slate-50 rounded-[2rem] hover:bg-blue-50/50 transition-colors border border-slate-100">
+                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-slate-100"><Phone className="text-blue-600" size={24} /></div>
                   <div>
-                    <p className="font-semibold text-black uppercase tracking-wider text-xs mb-1">Hotline tư vấn</p>
-                    <a href="tel:0917747777" className="text-lg font-medium tracking-wider text-black hover:underline">091.774.7777</a>
+                    <p className="font-black text-slate-900 uppercase tracking-widest text-xs mb-1.5">Hotline</p>
+                    <a href="tel:0582376666" className="text-xl font-black text-blue-600">058.237.6666</a>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-neutral-100 shadow-sm">
-                  <Clock className="shrink-0 text-black mt-0.5" size={20} />
+                <div className="flex items-center gap-5 p-6 bg-slate-50 rounded-[2rem] hover:bg-blue-50/50 transition-colors border border-slate-100">
+                  <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shrink-0 shadow-sm border border-slate-100"><Clock className="text-blue-600" size={24} /></div>
                   <div>
-                    <p className="font-semibold text-black uppercase tracking-wider text-xs mb-1">Thời gian mở cửa</p>
-                    <p>08:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>
+                    <p className="font-black text-slate-900 uppercase tracking-widest text-xs mb-1.5">Giờ mở cửa</p>
+                    <p className="text-slate-600 font-medium">08:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="lg:col-span-7 w-full h-[450px] rounded-[2.5rem] overflow-hidden border-4 border-white shadow-xl shadow-neutral-200/80 relative">
-              <iframe src="https://maps.google.com/maps?q=21.04961520953711,105.88330543442477&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen={true} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="absolute inset-0 w-full h-full object-cover"></iframe>
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="lg:col-span-7 w-full h-[600px] rounded-[3rem] overflow-hidden shadow-2xl shadow-slate-300/60 relative border-8 border-slate-50 bg-slate-100">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d232.58719461458594!2d105.84370208948461!3d21.136668629210686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313501d4ae7e6869%3A0x9675f89957718e87!2zWGUgxJFp4buHbiDEkMO0bmcgQW5o!5e0!3m2!1svi!2s!4v1793262823788!5m2!1svi!2s" width="100%" height="100%" style={{ border: 0, filter: 'contrast(1.1) saturate(1.2)' }} allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin" className="absolute inset-0"></iframe>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <footer id="lien-he" className="bg-black text-white pt-24 pb-10 px-6 border-t-8 border-neutral-900">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 border-b border-neutral-800 pb-16 mb-8">
+      {/* 8. FOOTER */}
+      <footer id="lien-he" className="bg-slate-950 text-white pt-32 pb-12 px-6">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 border-b border-slate-800/80 pb-20 mb-10">
           <div className="lg:col-span-5">
-            <h2 className="text-4xl font-semibold mb-4 uppercase tracking-widest leading-none">Minh Anh</h2>
-            <span className="text-sm text-neutral-500 tracking-[0.4em] uppercase block mb-6">Xe điện Long Biên</span>
-            <p className="text-neutral-400 text-sm leading-relaxed font-light max-w-sm mb-8">Nâng tầm phong cách di chuyển đô thị. Hệ thống xe điện Minh Anh - xe điện Long Biên phân phối các dòng xe điện Powelldd, TMT,....chính hãng hàng đầu Việt Nam.</p>
+            {/* Logo Footer (Sửa bg-black thành bg-white) */}
+            <div className="flex items-center gap-4 mb-6">
+               <div className="w-14 h-14 rounded-2xl overflow-hidden bg-white flex items-center justify-center p-1 shadow-lg">
+                  <img src="/favicon.ico" alt="Xe Điện Đông Anh" className="w-full h-full object-contain" />
+               </div>
+               <div>
+                 <h2 className="text-3xl font-black uppercase tracking-widest leading-none">Đông Anh</h2>
+                 <span className="text-[10px] text-blue-500 font-bold tracking-[0.3em] uppercase mt-1.5 block">Hệ sinh thái xe điện</span>
+               </div>
+            </div>
+            
+            <p className="text-slate-400 text-sm leading-relaxed font-medium max-w-sm mb-10">Kiến tạo phong cách số hiện đại. Chuyên phân phối các dòng xe điện chính hãng hàng đầu tại khu vực Đông Anh.</p>
             <div className="flex gap-4">
-              <a href="https://www.facebook.com/profile.php?id=61585209534176" target="_blank" rel="noreferrer" className="bg-neutral-800 p-3 rounded-full hover:bg-blue-600 hover:text-white transition-all shadow-sm">
+              <a href="https://www.facebook.com/xemaydientuonglai" target="_blank" rel="noreferrer" className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:-translate-y-1 transition-all duration-300 border border-slate-800">
                 <FacebookIcon size={20} />
               </a>
-              <a href="https://zalo.me/0917747777" target="_blank" rel="noreferrer" className="bg-neutral-800 p-3 rounded-full hover:bg-blue-500 transition-all shadow-sm flex items-center justify-center">
-                <img src="/images/logo-zalo-tiktok-facebook/logo-zalo-footer.png" alt="Zalo" className="w-5 h-5 object-contain rounded-full" />
+              <a href="https://zalo.me/0582376666" target="_blank" rel="noreferrer" className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center hover:bg-blue-500 hover:-translate-y-1 transition-all duration-300 border border-slate-800">
+                <span className="font-black text-sm">Zalo</span>
               </a>
-              <a href="https://vt.tiktok.com/ZSqxquYYX/" target="_blank" rel="noreferrer" className="bg-neutral-800 p-3 rounded-full hover:bg-gray-700 hover:text-white transition-all shadow-sm">
+              <a href="https://vt.tiktok.com/ZSqxquYYX/" target="_blank" rel="noreferrer" className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center hover:bg-black hover:-translate-y-1 transition-all duration-300 border border-slate-800 hover:border-slate-700">
                 <TiktokIcon size={20} />
               </a>
             </div>
           </div>
+          
           <div className="lg:col-span-4">
-            <h3 className="text-sm font-semibold mb-8 uppercase tracking-[0.2em] text-neutral-200">Trải nghiệm thực tế</h3>
-            <div className="space-y-6 text-neutral-400 font-light text-sm">
-              <a href="https://www.google.com/maps/search/?api=1&query=547+Nguyễn+Văn+Cừ,+Bồ+Đề,+Hà+Nội" target="_blank" rel="noreferrer" className="flex items-start gap-4 hover:text-white transition-colors">
-                <MapPin className="shrink-0 text-white" size={18} /> Số 547 Nguyễn Văn Cừ, Bồ Đề, Hà Nội
-              </a>
-              <p className="flex items-center gap-4 hover:text-white transition-colors"><Phone className="shrink-0 text-white" size={18} /> <a href="tel:0917747777" className="text-xl font-medium tracking-wider">091.774.7777</a></p>
-              <p className="flex items-center gap-4 hover:text-white transition-colors"><Clock className="shrink-0 text-white" size={18} /> 08:00 - 21:00 (Thứ 2 - Chủ Nhật)</p>
+            <h3 className="text-xs font-black mb-10 uppercase tracking-[0.3em] text-slate-300">Thông tin liên hệ</h3>
+            <div className="space-y-6 text-slate-400 font-medium text-sm">
+              <p className="flex items-start gap-4 hover:text-white transition-colors cursor-default"><MapPin className="shrink-0 mt-0.5 text-blue-500" size={20} /> Đông Anh, Hà Nội</p>
+              <p className="flex items-center gap-4 hover:text-white transition-colors"><Phone className="shrink-0 text-blue-500" size={20} /> <a href="tel:0582376666" className="font-bold tracking-wider text-base">058.237.6666</a></p>
+              <p className="flex items-center gap-4"><Clock className="shrink-0 text-blue-500" size={20} /> 08:00 - 21:00 (T2 - CN)</p>
             </div>
           </div>
+          
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-semibold mb-8 uppercase tracking-[0.2em] text-neutral-200">Dịch vụ</h3>
-            <ul className="space-y-4 font-medium text-sm text-neutral-400">
-              <li><a href="#" className="hover:text-white transition-colors">Chính sách bảo hành</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Hướng dẫn trả góp</a></li>
+            <h3 className="text-xs font-black mb-10 uppercase tracking-[0.3em] text-slate-300">Khách hàng</h3>
+            <ul className="space-y-5 font-medium text-sm text-slate-400">
+              <li><a href="#" className="hover:text-blue-400 transition-colors">Chính sách bảo hành</a></li>
+              <li><a href="#" className="hover:text-blue-400 transition-colors">Hướng dẫn trả góp</a></li>
+              <li><a href="#" className="hover:text-blue-400 transition-colors">Chăm sóc khách hàng</a></li>
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-neutral-500 text-[10px] font-medium uppercase tracking-[0.2em]">
-          <p>© 2026 Xe điện Minh Anh - Xe điện Long Biên. ALL RIGHTS RESERVED.</p>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">
+          <p>© 2026 XE ĐIỆN ĐÔNG ANH. ALL RIGHTS RESERVED.</p>
         </div>
       </footer>
 
-      <div className="fixed bottom-6 right-6 z-[900] flex flex-col gap-5">
-        <div className="relative w-14 h-14 group">
-          <span className="absolute inset-0 rounded-full bg-[#0068FF] animate-ping opacity-60 group-hover:opacity-0 transition-opacity duration-300"></span>
-          <motion.a href="https://zalo.me/0917747777" target="_blank" rel="noreferrer" animate={{ rotate: [0, -15, 15, -15, 15, 0, 0, 0, 0, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0 }} className="relative flex items-center justify-center w-full h-full rounded-full shadow-xl shadow-[#0068FF]/50 hover:scale-110 transition-transform overflow-hidden bg-white">
-            <img src="/images/logo-zalo-tiktok-facebook/logo-zalo.png" alt="Zalo" className="w-full h-full object-cover" />
+      {/* FLOATING ACTION BUTTONS */}
+      <div className="fixed bottom-8 right-8 z-[90] flex flex-col gap-5">
+        <div className="relative w-16 h-16 group">
+          <span className="absolute inset-0 rounded-full bg-blue-500 animate-ping opacity-30 duration-1000"></span>
+          <motion.a href="https://zalo.me/0582376666" target="_blank" rel="noreferrer" whileHover={{ scale: 1.1 }} className="relative flex items-center justify-center w-full h-full rounded-full bg-blue-500 text-white shadow-2xl shadow-blue-500/40 border-2 border-white/20">
+             <span className="font-black text-base">Zalo</span>
           </motion.a>
         </div>
-
-        <div className="relative w-14 h-14 group">
-          <span className="absolute inset-0 rounded-full bg-[#0084FF] animate-ping opacity-60 group-hover:opacity-0 transition-opacity duration-300" style={{ animationDelay: '0.5s' }}></span>
-          <motion.a href="https://m.me/61585209534176" target="_blank" rel="noreferrer" animate={{ rotate: [0, -15, 15, -15, 15, 0, 0, 0, 0, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }} className="relative flex items-center justify-center w-full h-full bg-gradient-to-tr from-[#00C6FF] to-[#0072FF] text-white rounded-full shadow-xl shadow-blue-500/50 hover:scale-110 transition-transform">
-            <MessengerIcon size={34} />
+        <div className="relative w-16 h-16 group">
+          <motion.a href="https://www.facebook.com/xemaydientuonglai" target="_blank" rel="noreferrer" whileHover={{ scale: 1.1 }} className="relative flex items-center justify-center w-full h-full bg-gradient-to-tr from-[#00C6FF] to-[#0072FF] text-white rounded-full shadow-2xl shadow-blue-500/40 border-2 border-white/20">
+            <MessengerIcon size={30} />
           </motion.a>
         </div>
       </div>
 
+      {/* MODAL FORM TƯ VẤN & LÁI THỬ: Glassmorphism */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsModalOpen(false)} className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer" />
-            <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="relative bg-white w-full max-w-lg rounded-[2rem] p-8 shadow-2xl z-10 overflow-hidden">
-              <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 text-neutral-400 hover:text-black transition-colors"><X size={24} /></button>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsModalOpen(false)} className="absolute inset-0 bg-slate-900/60 backdrop-blur-md cursor-pointer" />
+            
+            <motion.div initial={{ opacity: 0, scale: 0.9, y: 30 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 30 }} transition={{ type: "spring", damping: 25, stiffness: 300 }} className="relative bg-white/95 backdrop-blur-xl border border-white/50 w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl shadow-black/40 z-10 overflow-hidden">
+              <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-900 hover:bg-slate-200 transition-colors"><X size={20} /></button>
 
               {formStatus === "success" ? (
-                <div className="text-center py-10">
-                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="flex justify-center mb-6 text-green-500">
-                    <CheckCircle2 size={64} strokeWidth={1.5} />
+                <div className="text-center py-12">
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", bounce: 0.5 }} className="flex justify-center mb-8 text-emerald-500">
+                    <CheckCircle2 size={80} strokeWidth={1.5} />
                   </motion.div>
-                  <h3 className="text-2xl font-bold mb-2">Đăng ký thành công!</h3>
-                  <p className="text-neutral-500">Cảm ơn anh/chị. Đội ngũ tư vấn viên của Minh Anh - xe điện Long Biên sẽ gọi lại trong thời gian sớm nhất.</p>
+                  <h3 className="text-3xl font-black mb-3 text-slate-900">Đăng ký thành công</h3>
+                  <p className="text-slate-500 font-medium text-base">Chuyên viên của Xe điện Đông Anh sẽ liên hệ với bạn trong ít phút tới.</p>
                 </div>
               ) : (
                 <>
-                  <h3 className="text-2xl font-bold uppercase tracking-widest mb-2">Đăng ký tư vấn</h3>
-                  <p className="text-neutral-500 text-sm mb-8">Nhận ngay tư vấn chi tiết và voucher ưu đãi giới hạn.</p>
+                  <h3 className="text-3xl font-black uppercase tracking-widest mb-3 text-slate-900">Đăng ký lái thử</h3>
+                  <p className="text-slate-500 text-sm mb-10 font-medium border-b border-slate-100 pb-6">Trải nghiệm tốc độ, nhận ngay đặc quyền.</p>
 
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-widest text-neutral-500 mb-2">Họ và tên *</label>
-                      <input required type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" placeholder="Nhập tên của bạn" />
+                      <input required type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50/50 border border-slate-200 text-slate-900 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-bold placeholder-slate-400" placeholder="Họ và tên của bạn *" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-widest text-neutral-500 mb-2">Số điện thoại *</label>
-                      <input required type="tel" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all" placeholder="Nhập số điện thoại" />
+                      <input required type="tel" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full bg-slate-50/50 border border-slate-200 text-slate-900 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all text-sm font-bold placeholder-slate-400" placeholder="Số điện thoại liên hệ *" />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-widest text-neutral-500 mb-2">Dòng xe quan tâm</label>
-                      <select value={formData.model} onChange={(e) => setFormData({...formData, model: e.target.value})} className="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 outline-none focus:border-black focus:ring-1 focus:ring-black transition-all appearance-none cursor-pointer">
-                        <option value="Chưa xác định">Chưa xác định - Cần tư vấn thêm</option>
+                      <select value={formData.model} onChange={(e) => setFormData({...formData, model: e.target.value})} className="w-full bg-slate-50/50 border border-slate-200 text-slate-700 rounded-2xl px-5 py-4 outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all appearance-none cursor-pointer text-sm font-bold">
+                        <option value="Chưa xác định">Bạn đang quan tâm dòng xe nào?</option>
                         {powellddBikes.map(bike => <option key={bike.id} value={bike.name}>{bike.name}</option>)}
                       </select>
                     </div>
-                    <button type="submit" disabled={formStatus === "submitting"} className="w-full bg-black text-white rounded-xl py-4 font-semibold uppercase tracking-widest mt-4 hover:bg-neutral-800 transition-colors flex items-center justify-center disabled:bg-neutral-400">
-                      {formStatus === "submitting" ? <Loader2 className="animate-spin" size={20} /> : "Gửi thông tin"}
+                    <button type="submit" disabled={formStatus === "submitting"} className="w-full bg-blue-600 text-white rounded-2xl py-4.5 font-black uppercase tracking-widest mt-6 hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-600/30 transition-all flex items-center justify-center disabled:bg-slate-300 disabled:text-slate-500 disabled:shadow-none">
+                      {formStatus === "submitting" ? <Loader2 className="animate-spin" size={24} /> : "Xác nhận gửi"}
                     </button>
-                    {formStatus === "error" && <p className="text-red-500 text-xs text-center mt-2">Có lỗi xảy ra, vui lòng thử lại sau!</p>}
                   </form>
                 </>
               )}

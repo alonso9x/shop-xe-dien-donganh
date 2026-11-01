@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Xe Điện Walkmen | Xe Điện Minh Anh",
-  description: "Khám phá xe máy điện Powelldd Walkmen với thiết kế kiểu dáng thể thao, góc cạnh với những đường nét mạnh mẽ. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+  title: "Xe Điện Walkmen | Xe Điện Đông Anh",
+  description: "Khám phá xe máy điện Powelldd Walkmen với thiết kế kiểu dáng thể thao, góc cạnh với những đường nét mạnh mẽ. Trải nghiệm ngay tại Xe Điện Đông Anh.",
   alternates: {
-    canonical: "https://xedienminhanh.vn/walkmen",
+    canonical: "https://xediendonganh.vn/walkmen",
   },
 };
 
@@ -18,9 +18,9 @@ export default function WalkmenLayout({
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Xe máy điện Powelldd Walkmen",
-    // Link ảnh lấy chính xác theo cấu trúc: thư mục vehicles và đuôi .JPG viết hoa
-    "image": "https://xedienminhanh.vn/images/vehicles/walkmen/gallery/anh(7).jpg",
-    "description": "Khám phá xe máy điện Powelldd Walkmen với thiết kế kiểu dáng thể thao, góc cạnh với những đường nét mạnh mẽ. Trải nghiệm ngay tại Xe Điện Long Biên - Minh Anh.",
+    // Link ảnh lấy chính xác theo cấu trúc: thư mục vehicles và đuôi .JPG viết hoa (nếu có)
+    "image": "https://xediendonganh.vn/images/vehicles/walkmen/gallery/anh(7).jpg",
+    "description": "Khám phá xe máy điện Powelldd Walkmen với thiết kế kiểu dáng thể thao, góc cạnh với những đường nét mạnh mẽ. Trải nghiệm ngay tại Xe Điện Đông Anh.",
     "sku": "POWELLDD-WALKMEN",
     "brand": {
       "@type": "Brand",
@@ -28,7 +28,7 @@ export default function WalkmenLayout({
     },
     "offers": {
       "@type": "Offer",
-      "url": "https://xedienminhanh.vn/walkmen",
+      "url": "https://xediendonganh.vn/walkmen",
       "priceCurrency": "VND",
       "price": "13800000",
       "priceValidUntil": "2026-12-31",
@@ -36,7 +36,7 @@ export default function WalkmenLayout({
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
-        "name": "Xe Điện Minh Anh"
+        "name": "Xe Điện Đông Anh"
       }
     }
   };

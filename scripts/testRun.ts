@@ -4,56 +4,52 @@ import * as fs from 'fs';
 import path from 'path';
 
 // ========================================================
-// HÀM CHỌN NGẪU NHIÊN CTA (Đa dạng hóa SEO & Chuyển đổi)
+// HÀM CHỌN NGẪU NHIÊN CTA (Đa dạng hóa SEO & Chuyển đổi - Đông Anh)
 // ========================================================
 function getRandomCTA(): string {
   const ctaTemplates = [
-    `\n\n---\n💡 **Bạn đang tìm kiếm xe điện bền bỉ và chất lượng?** Khám phá ngay các mẫu xe mới nhất tại [Xe Điện Minh Anh - Xe điện Long Biên; hotline 091.774.7777](https://xedienminhanh.vn) để nhận ưu đãi hấp dẫn hôm nay!`,
-    `\n\n---\n🛠️ **Xe máy điện tiết kiệm - an toàn - hiện đại.** Đến [Xe Điện Minh Anh - Xe điện Long Biên; hotline 091.774.7777](https://xedienminhanh.vn) để trải nghiệm dịch vụ bảo hành chính hãng và hỗ trợ kỹ thuật tận tâm nhất.`,
-    `\n\n---\n🎯 **Lựa chọn thông minh cho di chuyển đô thị.** Xem ngay bảng giá chi tiết và các mẫu xe điện hot nhất thị trường tại [Xe Điện Minh Anh - Xe điện Long Biên;hotline 091.774.7777](https://xedienminhanh.vn).`,
-    `\n\n---\n⚡ **Gia nhập cộng đồng di chuyển xanh cùng Xe Điện Minh Anh - Xe điện Long Biên.** Liên hệ ngay [tại đây](https://xedienminhanh.vn) để nhận tư vấn miễn phí dòng xe phù hợp với nhu cầu của bạn.`,
-    `\n\n---\n💰 **Mua xe điện giá tốt - Nhận quà liền tay.** Đừng bỏ lỡ cơ hội sở hữu chiếc xe ưng ý tại [Xe Điện Minh Anh - Xe điện Long Biên; hotline 091.774.7777](https://xedienminhanh.vn) với chính sách trả góp cực ưu đãi.`
+    `\n\n---\n💡 **Bạn đang tìm kiếm xe điện bền bỉ và chất lượng?** Khám phá ngay các mẫu xe mới nhất tại [Xe Điện Đông Anh; hotline 058.237.6666](https://xediendonganh.vn) để nhận ưu đãi hấp dẫn hôm nay!`,
+    `\n\n---\n🛠️ **Xe máy điện tiết kiệm - an toàn - hiện đại.** Đến [Xe Điện Đông Anh; hotline 058.237.6666](https://xediendonganh.vn) để trải nghiệm dịch vụ bảo hành chính hãng và hỗ trợ kỹ thuật tận tâm nhất.`,
+    `\n\n---\n🎯 **Lựa chọn thông minh cho di chuyển đô thị.** Xem ngay bảng giá chi tiết và các mẫu xe điện hot nhất thị trường tại [Xe Điện Đông Anh; hotline 058.237.6666](https://xediendonganh.vn).`,
+    `\n\n---\n⚡ **Gia nhập cộng đồng di chuyển xanh cùng Xe Điện Đông Anh.** Liên hệ ngay [tại đây](https://xediendonganh.vn) để nhận tư vấn miễn phí dòng xe phù hợp với nhu cầu của bạn.`,
+    `\n\n---\n💰 **Mua xe điện giá tốt - Nhận quà liền tay.** Đừng bỏ lỡ cơ hội sở hữu chiếc xe ưng ý tại [Xe Điện Đông Anh; hotline 058.237.6666](https://xediendonganh.vn) với chính sách trả góp cực ưu đãi.`
   ];
   return ctaTemplates[Math.floor(Math.random() * ctaTemplates.length)];
 }
 
 // ========================================================
-// [HÀM ĐỘ THÊM] TỰ ĐỘNG GẮN LINK NỘI BỘ & LIÊN HỆ
+// TỰ ĐỘNG GẮN LINK NỘI BỘ & LIÊN HỆ (Đông Anh)
 // ========================================================
 function autoInsertLinks(content: string): string {
   let modifiedContent = content;
 
-  // 1. GẮN LINK TỪ KHÓA SEO SẢN PHẨM & TRANG CHỦ
+  // 1. GẮN LINK TỪ KHÓA SEO SẢN PHẨM & TRANG CHỦ (Tên miền xediendonganh.vn)
   const seoKeywords = [
-    { keyword: "xe máy điện", url: "https://xedienminhanh.vn" },
-    { keyword: "xe điện", url: "https://xedienminhanh.vn" },
-    { keyword: "xe điện Long Biên", url: "https://xedienminhanh.vn" },
-    // Dựa theo cây thư mục app/ của ông để link chéo đúng chuẩn:
-    { keyword: "Dimoon", url: "https://xedienminhanh.vn/dimoon" },
-    { keyword: "Dina", url: "https://xedienminhanh.vn/dina" },
-    { keyword: "Eiko", url: "https://xedienminhanh.vn/eiko" },
-    { keyword: "Fancy", url: "https://xedienminhanh.vn/fancy" },
-    { keyword: "Hazel", url: "https://xedienminhanh.vn/hazel" },
-    { keyword: "Shine", url: "https://xedienminhanh.vn/shine" },
-    { keyword: "Sweetea", url: "https://xedienminhanh.vn/sweetea" },
-    { keyword: "Walkmen", url: "https://xedienminhanh.vn/walkmen" },
-    { keyword: "Wespan Pro", url: "https://xedienminhanh.vn/wespan-pro" },
+    { keyword: "xe máy điện", url: "https://xediendonganh.vn" },
+    { keyword: "xe điện", url: "https://xediendonganh.vn" },
+    { keyword: "xe điện Đông Anh", url: "https://xediendonganh.vn" },
+    // Link chéo tới các dòng xe chuẩn cấu trúc route của hệ thống mới:
+    { keyword: "Dimoon", url: "https://xediendonganh.vn/dimoon" },
+    { keyword: "Dina", url: "https://xediendonganh.vn/dina" },
+    { keyword: "Eiko", url: "https://xediendonganh.vn/eiko" },
+    { keyword: "Fancy", url: "https://xediendonganh.vn/fancy" },
+    { keyword: "Hazel", url: "https://xediendonganh.vn/hazel" },
+    { keyword: "Shine", url: "https://xediendonganh.vn/shine" },
+    { keyword: "Sweetea", url: "https://xediendonganh.vn/sweetea" },
+    { keyword: "Walkmen", url: "https://xediendonganh.vn/walkmen" },
+    { keyword: "Wespan Pro", url: "https://xediendonganh.vn/wespan-pro" },
   ];
 
   seoKeywords.forEach(item => {
-    // Regex siêu chuẩn: Tìm từ khóa nhưng BỎ QUA nếu từ khóa đó đã nằm trong 1 cái link [text](url) khác.
-    // Dùng cờ 'i' (không phân biệt hoa thường). KHÔNG dùng cờ 'g' để CHỈ CHÈN 1 LẦN DUY NHẤT mỗi từ khóa -> Tránh bị Google phạt tội Spam link (Keyword Stuffing).
     const regex = new RegExp(`(?<!\\[[^\\]]*?)\\b(${item.keyword})\\b(?![^\\[]*?\\])`, 'i');
     modifiedContent = modifiedContent.replace(regex, `[$1](${item.url})`);
   });
 
-  // 2. GẮN LINK SĐT & ZALO (Cái này thì cứ gặp ở đâu là chèn link ở đó)
+  // 2. GẮN LINK SĐT & ZALO THEO HOTLINE MỚI CỦA ĐÔNG ANH (058.237.6666)
+  modifiedContent = modifiedContent.replace(/(?<!\\[[^\\]]*?)\b(058\.?237\.?6666|058 237 6666)\b(?![^\\[]*?\\])/g, '[058.237.6666](tel:0582376666)');
   
-  // Bắt các định dạng sđt: 091.774.7777 hoặc 0917747777 hoặc 091 774 7777
-  modifiedContent = modifiedContent.replace(/(?<!\\[[^\\]]*?)\b(091\.?774\.?7777|091 774 7777)\b(?![^\\[]*?\\])/g, '[091.774.7777](tel:0917747777)');
-  
-  // Bắt chữ Zalo
-  modifiedContent = modifiedContent.replace(/(?<!\\[[^\\]]*?)\b(zalo)\b(?![^\\[]*?\\])/gi, '[Zalo](https://zalo.me/0917747777)');
+  // Bắt chữ Zalo trỏ về SĐT Đông Anh
+  modifiedContent = modifiedContent.replace(/(?<!\\[[^\\]]*?)\b(zalo)\b(?![^\\[]*?\\])/gi, '[Zalo](https://zalo.me/0582376666)');
 
   return modifiedContent;
 }
@@ -67,7 +63,7 @@ function generateSlug(text: string) {
     .replace(/^-|-$/g, '');
 }
 
-// HÀM CHECK ẢNH MỚI: Bổ sung Header để lách chặn bot
+// HÀM CHECK ẢNH: Bổ sung Header để lách chặn bot
 async function checkImage(url: string | null | undefined): Promise<{ valid: boolean; reason: string }> {
   if (!url || typeof url !== 'string' || !url.startsWith('http') || url.length < 10) 
     return { valid: false, reason: "URL sai/trống" };
@@ -90,7 +86,7 @@ async function checkImage(url: string | null | undefined): Promise<{ valid: bool
 }
 
 async function run() {
-  console.log("🚀 BẮT ĐẦU QUÁ TRÌNH TỰ ĐỘNG CÀO TIN CHUYÊN SÂU...");
+  console.log("🚀 BẮT ĐẦU QUÁ TRÌNH TỰ ĐỘNG CÀO TIN CHO XE ĐIỆN ĐÔNG ANH...");
   
   const targetKeywords = [
     "kiến thức sử dụng xe máy điện",
@@ -172,7 +168,7 @@ async function run() {
 
   for (let i = 0; i < healthyQueue.length; i++) {
     const item = healthyQueue[i];
-    console.log(`\n🎲 [Lượt chọn ngẫu nhiên] Đang thử bài [${i + 1}/${healthyQueue.length} - Hàng xịn]: ${item.title}`);
+    console.log(`\n🎲 [Lượt chọn ngẫu nhiên] Đang thử bài [${i + 1}/${healthyQueue.length} Hàng xịn]: \n${item.title}`);
     
     const aiResult = await rewriteArticle(item.content, item.title);
     if (aiResult) {
@@ -202,12 +198,10 @@ async function run() {
         ? finalAiResult.content.join('\n\n') 
         : String(finalAiResult.content);
     
-    // ==========================================
-    // NHÚNG HÀM SEO VÀO ĐÂY (Xử lý content trước khi gắn CTA)
-    // ==========================================
+    // GẮN LINK NỘI BỘ VÀO NỘI DUNG
     const seoOptimizedContent = autoInsertLinks(rawContent);
 
-    // CHÈN CTA NGẪU NHIÊN VÀO CUỐI BÀI (Đã tối ưu SEO)
+    // CHÈN CTA NGẪU NHIÊN VÀO CUỐI BÀI (Thương hiệu Xe Điện Đông Anh)
     const contentString = seoOptimizedContent + getRandomCTA();
 
     console.log("\n==============================================");

@@ -5,10 +5,10 @@ import path from "path";
 // VÁ LỖI CACHE: Ép Next.js render lại sitemap mỗi khi có request, không lưu cache đóng băng.
 export const dynamic = 'force-dynamic';
 
-const baseUrl = "https://xedienminhanh.vn";
+const baseUrl = "https://xediendonganh.vn";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticLastModified = new Date("2026-08-14");
+  const staticLastModified = new Date("2026-10-30");
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: staticLastModified, changeFrequency: "weekly", priority: 1.0 },

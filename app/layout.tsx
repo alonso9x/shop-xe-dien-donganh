@@ -10,14 +10,14 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://xedienminhanh.vn"),
+  metadataBase: new URL("https://xediendonganh.vn"),
   title: {
-    default: "Xe Điện Long Biên | Xe Điện Minh Anh – Đại Lý Chính Hãng",
-    template: "%s | Xe Điện Minh Anh",
+    default: "Xe Điện Đông Anh | Kỷ Nguyên Di Chuyển Mới",
+    template: "%s | Xe Điện Đông Anh",
   },
   description:
-    "Đại lý phân phối xe máy điện, xe đạp điện chính hãng tại Long Biên, Hà Nội. Trải nghiệm các dòng xe Powelldd, Vinfast, TMT uy tín với giá tốt nhất.",
-  applicationName: "Xe Điện Minh Anh",
+    "Đại lý phân phối xe máy điện, xe đạp điện chính hãng hàng đầu tại Đông Anh, Hà Nội. Trải nghiệm các dòng xe thời thượng Powelldd, TMT với giá tốt nhất.",
+  applicationName: "Xe Điện Đông Anh",
   robots: {
     index: true,
     follow: true,
@@ -25,25 +25,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "vi_VN",
-    url: "https://xedienminhanh.vn/",
-    siteName: "Xe Điện Minh Anh",
-    title: "Xe Điện Long Biên | Xe Điện Minh Anh – Đại Lý Chính Hãng",
+    url: "https://xediendonganh.vn/",
+    siteName: "Xe Điện Đông Anh",
+    title: "Xe Điện Đông Anh | Kỷ Nguyên Di Chuyển Mới",
     description:
-      "Đại lý phân phối xe máy điện, xe đạp điện chính hãng tại Long Biên, Hà Nội. Trải nghiệm các mẫu xe điện thời thượng, chất lượng cao tại 547 Nguyễn Văn Cừ.",
+      "Đại lý phân phối xe máy điện, xe đạp điện chính hãng tại Đông Anh. Trải nghiệm các mẫu xe điện công nghệ cao, thiết kế đón đầu xu hướng.",
     images: [
       {
         url: "/images/banner/banner-seo(3).png",
         width: 1200,
         height: 630,
-        alt: "Xe Điện Minh Anh",
+        alt: "Xe Điện Đông Anh",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Xe Điện Long Biên | Xe Điện Minh Anh – Đại Lý Chính Hãng",
+    title: "Xe Điện Đông Anh | Kỷ Nguyên Di Chuyển Mới",
     description:
-      "Đại lý phân phối xe máy điện, xe đạp điện chính hãng tại Long Biên, Hà Nội.",
+      "Đại lý phân phối xe máy điện, xe đạp điện chính hãng tại khu vực Đông Anh, Hà Nội.",
     images: ["/images/banner/banner-seo(3).png"],
   },
 };
@@ -53,45 +53,45 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://xedienminhanh.vn/#website",
-      "url": "https://xedienminhanh.vn/",
-      "name": "Xe Điện Minh Anh",
+      "@id": "https://xediendonganh.vn/#website",
+      "url": "https://xediendonganh.vn/",
+      "name": "Xe Điện Đông Anh",
       "alternateName": [
-        "xedienminhanh.vn"
+        "xediendonganh.vn"
       ],
       "publisher": {
-        "@id": "https://xedienminhanh.vn/#store"
+        "@id": "https://xediendonganh.vn/#store"
       }
     },
     {
       "@type": "MotorcycleDealer",
-      "@id": "https://xedienminhanh.vn/#store",
-      "name": "Xe điện Minh Anh - Xe điện Long Biên",
-      "url": "https://xedienminhanh.vn/",
-      "telephone": "0917747777",
+      "@id": "https://xediendonganh.vn/#store",
+      "name": "Xe Điện Đông Anh",
+      "url": "https://xediendonganh.vn/",
+      "telephone": "0582376666",
       "priceRange": "10.000.000đ - 20.500.000đ",
       "hasMap": "https://maps.app.goo.gl/TMF9s4ZiED3EdCGm9",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://xedienminhanh.vn/favicon.ico"
+        "url": "https://xediendonganh.vn/favicon.ico"
       },
       "image": [
-        "https://xedienminhanh.vn/images/banner/banner-seo(1).png",
-        "https://xedienminhanh.vn/images/banner/banner-seo(2).png",
-        "https://xedienminhanh.vn/images/banner/banner-seo(3).png",
-        "https://xedienminhanh.vn/images/banner/banner-seo(4).png"
+        "https://xediendonganh.vn/images/banner/banner-seo(1).png",
+        "https://xediendonganh.vn/images/banner/banner-seo(2).png",
+        "https://xediendonganh.vn/images/banner/banner-seo(3).png",
+        "https://xediendonganh.vn/images/banner/banner-seo(4).png"
       ],
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "547 Nguyễn Văn Cừ, Bồ Đề",
-        "addressLocality": "Long Biên",
+        "streetAddress": "Đông Anh",
+        "addressLocality": "Đông Anh",
         "addressRegion": "Hà Nội",
         "addressCountry": "VN"
       },
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 21.049524992943706,
-        "longitude": 105.88297443388772
+        "latitude": 21.136668629210686,
+        "longitude": 105.84370208948461
       },
       "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
@@ -108,8 +108,8 @@ const jsonLd = {
         "closes": "21:00"
       },
       "sameAs": [
-        "https://www.facebook.com/profile.php?id=61585209534176",
-        "https://www.tiktok.com/@powelldd.long.bien"
+        "https://www.facebook.com/xemaydientuonglai",
+        "https://vt.tiktok.com/ZSqxquYYX/"
       ]
     }
   ]
@@ -127,26 +127,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-11WYGY4N4Z"
-        />
-        <Script
-          id="google-tags"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              
-              gtag('config', 'G-11WYGY4N4Z');
-              gtag('config', 'AW-18262483267');
-            `,
-          }}
-        />
-
         {children}
       </body>
     </html>
